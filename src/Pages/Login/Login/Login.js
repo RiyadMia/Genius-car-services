@@ -1,13 +1,25 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import auth from "../../../firebase.init";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   /* From Login Sestem useRef */
   const emailRef = useRef("");
 
   const PasswordRef = useRef("");
+
+  /*Firebace hooks install */
+
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  if (user) {
+    navigate(from, { replace: true });
+  }
 
   /* From Submit Button */
 
@@ -15,7 +27,7 @@ const Login = () => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = PasswordRef.current.value;
-    console.log(email, password);
+    signInWithEmailAndPassword(email, password);
   };
 
   const navigetRegister = (event) => {

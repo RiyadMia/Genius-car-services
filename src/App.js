@@ -8,6 +8,8 @@ import ServiceDatial from "./Pages/ServiceDatail/ServiceDatial";
 import NotFound from "./Pages/Shared/NotFound/NotFound";
 import Login from "./Pages/Login/Login/Login";
 import Register from "./Pages/Login/Register/Register";
+import ChackOut from "./Pages/ChackOut/ChackOut/ChackOut";
+import RequireAuth from "./Pages/Login/RequireAuth/RequireAuth";
 
 function App() {
   return (
@@ -23,6 +25,14 @@ function App() {
         ></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
+        <Route
+          path="/chackout"
+          element={
+            <RequireAuth>
+              <ChackOut></ChackOut>
+            </RequireAuth>
+          }
+        ></Route>
         <Route path="" element></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
